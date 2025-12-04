@@ -15,7 +15,7 @@ const ReactIntermediatePage = () => {
         </h1>
         <div className="flex flex-wrap justify-center gap-5 mb-8">
           <Badge variant="outline" className="px-6 py-3 text-lg font-bold border-2">
-            0 Hours Deep Practice
+            0  Hours Deep Practice
           </Badge>
           <Badge className="px-6 py-3 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
             Production-Grade React
