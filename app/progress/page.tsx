@@ -1,19 +1,8 @@
-// app/page.tsx
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Topic {
   id: string;
@@ -25,6 +14,7 @@ interface Topic {
   path: string;
 }
 
+// This should ideally be fetched from a shared source or API
 const topics: Topic[] = [
   {
     id: "testing-techniques",
@@ -127,7 +117,7 @@ const topics: Topic[] = [
   },
 ];
 
-export default function Page() {
+export default function ProgressPage() {
   const [progress, setProgress] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
@@ -141,26 +131,13 @@ export default function Page() {
     }
   }, []);
 
-  const toggleTopicComplete = (id: string) => {
-    setProgress((prev) => {
-      const updated = { ...prev, [id]: !prev[id] };
-      localStorage.setItem("topicProgress", JSON.stringify(updated));
-      return updated;
-    });
-  };
-
-  const completedTopicsCount = Object.values(progress).filter(Boolean).length;
-  const totalTopicsCount = topics.length;
-  const overallProgress = totalTopicsCount > 0 ? (completedTopicsCount / totalTopicsCount) * 100 : 0;
+  const completedTopics = Object.values(progress).filter(Boolean).length;
+  const totalTopics = topics.length;
+  const overallProgress = totalTopics > 0 ? (completedTopics / totalTopics) * 100 : 0;
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-center mb-4">
-        Full-Stack Interview Preparation Dashboard
-      </h1>
-      <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-        Master the most important topics for HackerRank full-stack engineering roles.
-      </p>
+      <h1 className="text-4xl font-bold text-center mb-10">Your Progress</h1>
 
       <Card className="mb-10 max-w-2xl mx-auto">
         <CardHeader>
@@ -175,76 +152,22 @@ export default function Page() {
         </CardContent>
       </Card>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <h2 className="text-3xl font-bold text-center mb-8">Topic Breakdown</h2>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {topics.map((topic) => (
-          <Card
-            key={topic.id}
-            className={`transition-all hover:shadow-lg ${
-              progress[topic.id] ? "ring-2 ring-green-500" : ""
-            }`}
-          >
+          <Card key={topic.id}>
             <CardHeader>
               <CardTitle className="text-lg">{topic.title}</CardTitle>
-              <CardDescription>{topic.description}</CardDescription>
             </CardHeader>
-
             <CardContent>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span>Time:</span>
-                  <span className="font-medium">{topic.timeEstimate}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Difficulty:</span>
-                  <span
-                    className={`font-medium ${
-                      topic.difficulty === "Easy"
-                        ? "text-green-600"
-                        : topic.difficulty === "Intermediate"
-                        ? "text-yellow-600"
-                        : topic.difficulty === "Advanced"
-                        ? "text-red-600"
-                        : "text-purple-600"
-                    }`}
-                  >
-                    {topic.difficulty}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Priority:</span>
-                  <Badge
-                    variant={
-                      topic.priority === "High"
-                        ? "destructive"
-                        : topic.priority === "Medium"
-                        ? "secondary"
-                        : "outline"
-                    }
-                  >
-                    {topic.priority}
-                  </Badge>
-                </div>
-              </div>
-
               <Progress
                 value={progress[topic.id] ? 100 : 0}
                 className="mt-4"
               />
+              <p className="text-center mt-2 text-sm">
+                {progress[topic.id] ? "Completed" : "Not Started"}
+              </p>
             </CardContent>
-
-            <CardFooter className="flex justify-between">
-              <Button
-                variant={progress[topic.id] ? "default" : "outline"}
-                onClick={() => toggleTopicComplete(topic.id)}
-                size="sm"
-              >
-                {progress[topic.id] ? "Completed" : "Mark Complete"}
-              </Button>
-
-              <Link href={topic.path}>
-                <Button size="sm" variant={"outline"}>Start</Button>
-              </Link>
-            </CardFooter>
           </Card>
         ))}
       </div>

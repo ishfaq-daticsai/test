@@ -1,19 +1,10 @@
-// app/page.tsx
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Topic {
   id: string;
@@ -25,6 +16,7 @@ interface Topic {
   path: string;
 }
 
+// This should ideally be fetched from a shared source or API
 const topics: Topic[] = [
   {
     id: "testing-techniques",
@@ -127,7 +119,7 @@ const topics: Topic[] = [
   },
 ];
 
-export default function Page() {
+export default function TopicsPage() {
   const [progress, setProgress] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
@@ -141,39 +133,9 @@ export default function Page() {
     }
   }, []);
 
-  const toggleTopicComplete = (id: string) => {
-    setProgress((prev) => {
-      const updated = { ...prev, [id]: !prev[id] };
-      localStorage.setItem("topicProgress", JSON.stringify(updated));
-      return updated;
-    });
-  };
-
-  const completedTopicsCount = Object.values(progress).filter(Boolean).length;
-  const totalTopicsCount = topics.length;
-  const overallProgress = totalTopicsCount > 0 ? (completedTopicsCount / totalTopicsCount) * 100 : 0;
-
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-center mb-4">
-        Full-Stack Interview Preparation Dashboard
-      </h1>
-      <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-        Master the most important topics for HackerRank full-stack engineering roles.
-      </p>
-
-      <Card className="mb-10 max-w-2xl mx-auto">
-        <CardHeader>
-          <CardTitle>Overall Progress</CardTitle>
-          <CardDescription>Your learning journey at a glance</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Progress value={overallProgress} className="h-4" />
-          <p className="text-center mt-4 text-lg font-semibold">
-            {overallProgress.toFixed(0)}% Complete
-          </p>
-        </CardContent>
-      </Card>
+      <h1 className="text-4xl font-bold text-center mb-10">All Topics</h1>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {topics.map((topic) => (
@@ -225,24 +187,11 @@ export default function Page() {
                   </Badge>
                 </div>
               </div>
-
-              <Progress
-                value={progress[topic.id] ? 100 : 0}
-                className="mt-4"
-              />
             </CardContent>
 
-            <CardFooter className="flex justify-between">
-              <Button
-                variant={progress[topic.id] ? "default" : "outline"}
-                onClick={() => toggleTopicComplete(topic.id)}
-                size="sm"
-              >
-                {progress[topic.id] ? "Completed" : "Mark Complete"}
-              </Button>
-
+            <CardFooter className="flex justify-end">
               <Link href={topic.path}>
-                <Button size="sm" variant={"outline"}>Start</Button>
+                <Button size="sm" variant={"outline"}>View Topic</Button>
               </Link>
             </CardFooter>
           </Card>
