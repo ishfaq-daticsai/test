@@ -28,7 +28,7 @@ export default function Header() {
           </div>
           <div>
             <h1 className="text-xl font-bold">HackerRank Prep</h1>
-            <p className="text-xs text-muted-foreground">Full-Stack Mastery</p>
+            <p className="text-xs text-muted-foreground">Full-Stack Mastery By: Muhammad Ishfaq(ishfaqaref@outlook.com)</p>
           </div>
         </Link>
 
