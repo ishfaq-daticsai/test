@@ -1,398 +1,329 @@
 import React from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/code-block";
-import { ArrowLeftIcon, ArrowRightIcon, Brain, Zap, Trophy, AlertCircle, Target } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
-const ProblemSolvingAdvancedPage = () => {
+const TypescriptIntermediatePage = () => {
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <header className="mb-12 text-center">
-        <h1 className="text-6xl md:text-8xl font-extrabold mb-6 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent">
-          Problem Solving: Advanced → God Tier
+    <div className="container mx-auto px-4 py-8">
+      <header className="mb-10 text-center">
+        <h1 className="text-5xl font-extrabold mb-4">
+          TypeScript (Intermediate)
         </h1>
-        <div className="flex flex-wrap justify-center gap-5 mb-8">
-          <Badge variant="outline" className="px-6 py-3 text-lg font-bold border-2">
-            0 Hours Mastery
+        <div className="flex items-center justify-center space-x-4 mb-6">
+          <Badge variant="outline" className="px-3 py-1 text-lg">
+            Time Estimate: 3h
           </Badge>
-          <Badge variant="destructive" className="px-6 py-3 text-lg font-bold">
-            Advanced · Staff / Principal Level
-          </Badge>
-          <Badge className="px-6 py-3 text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white">
-            <Trophy className="w-7 h-7 mr-2" /> Top 1% HackerRank
+          <Badge variant="secondary" className="px-3 py-1 text-lg">
+            Difficulty: Intermediate
           </Badge>
         </div>
-        <p className="text-xl md:text-2xl text-muted-foreground max-w-5xl mx-auto leading-relaxed">
-          Master the hardest algorithmic patterns that appear in Google L5+, Meta E6+, Amazon SDE III, and Bloomberg interviews. 
-          These are the exact problems that separate senior engineers from the rest.
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          Strengthen your TypeScript knowledge with advanced type manipulation,
+          generics, utility types, and typing React applications.
         </p>
       </header>
 
-      {/* What Big Tech Actually Tests */}
-      <section className="mb-16">
-        <h2 className="text-4xl font-bold mb-8 text-primary flex items-center gap-4">
-          <Target className="w-12 h-12 text-red-600" />
-          What Google, Meta, Bloomberg Actually Test (2025)
+      <section className="mb-12">
+        <h2 className="text-4xl font-bold mb-6 text-primary">
+          What HackerRank Usually Asks
         </h2>
-        <Card className="border-2 shadow-2xl">
-          <CardContent className="p-10">
-            <div className="grid md:grid-cols-2 gap-6 text-lg font-medium">
-              {[
-                "DP with state reconstruction (not just value)",
-                "Graph: Dijkstra + backtracking path",
-                "Sliding window + monotonic queue/deque",
-                "Binary search on answer + greedy validation",
-                "Trie + DFS with backtracking",
-                "Union-Find with path compression + rank",
-                "Segment Tree / Fenwick Tree (BIT)",
-                "Bit manipulation + DP (state compression)"
-              ].map((item) => (
-                <div key={item} className="flex items-center gap-3">
-                  <Zap className="w-6 h-6 text-orange-500" />
-                  {item}
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-
-      {/* Complexity God Tier */}
-      <section className="mb-16">
-        <h2 className="text-4xl font-bold mb-8 text-primary">Complexity God Tier</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-          {[
-            { name: "O(N)", color: "bg-green-600", desc: "Single pass" },
-            { name: "O(N log N)", color: "bg-blue-600", desc: "Sorting / Heap" },
-            { name: "O(N²)", color: "bg-orange-600", desc: "DP / Nested" },
-            { name: "O(2^N)", color: "bg-red-600", desc: "Subsets / Backtrack" },
-            { name: "O(N!)", color: "bg-purple-700", desc: "Permutations" }
-          ].map((c) => (
-            <Card key={c.name} className={`text-white ${c.color} border-0 shadow-xl`}>
-              <CardHeader className="text-center">
-                <CardTitle className="text-3xl">{c.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center font-medium">{c.desc}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Gold Tier Problems */}
-      <section className="mb-16">
-        <h2 className="text-4xl font-bold mb-12 text-primary">Top 8 God-Tier Problems (With Optimal Solutions)</h2>
-        <div className="space-y-14">
-
-          {/* 1. Trapping Rain Water */}
-          <Card className="overflow-hidden border-2 shadow-2xl">
-            <CardHeader className="bg-gradient-to-r from-blue-700 to-cyan-700 text-white">
-              <CardTitle className="text-2xl">1. Trapping Rain Water (Two Pointers + Greedy)</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-8">
-              <CodeBlock language="ts" code={`function trap(height: number[]): number {
-  let left = 0, right = height.length - 1;
-  let leftMax = 0, rightMax = 0;
-  let water = 0;
-
-  while (left < right) {
-    if (height[left] < height[right]) {
-      if (height[left] >= leftMax) {
-        leftMax = height[left];
-      } else {
-        water += leftMax - height[left];
-      }
-      left++;
-    } else {
-      if (height[right] >= rightMax) {
-        rightMax = height[right];
-      } else {
-        water += rightMax - height[right];
-      }
-      right--;
-    }
-  }
-  return water;
-}
-
-// [0,1,0,2,1,0,1,3,2,1,2,1] → 6`} />
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Badge className="bg-blue-600">Time: O(N)</Badge>
-                <Badge>Space O(1)</Badge>
-                <Badge className="bg-gradient-to-r from-red-600 to-orange-600 text-white">Google Favorite</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* 2. Word Break II (DP + Backtracking */}
-          <Card className="overflow-hidden border-2">
-            <CardHeader className="bg-gradient-to-r from-purple-700 to-pink-700 text-white">
-              <CardTitle className="text-2xl">2. Word Break II – Return All Possible Sentences</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <CodeBlock language="ts" code={`function wordBreak(s: string, wordDict: string[]): string[] {
-  const wordSet = new Set(wordDict);
-  const memo = new Map<string, string[]>();
-
-  function dfs(str: string): string[] {
-    if (memo.has(str)) return memo.get(str)!;
-    if (str === "") return [""];
-
-    const res: string[] = [];
-    for (const word of wordSet) {
-      if (str.startsWith(word)) {
-        const rest = dfs(str.slice(word.length));
-        for (const sentence of rest) {
-          res.push(sentence ? \`\${word} \${sentence.trim()}\` : word);
-        }
-      }
-    }
-    memo.set(str, res);
-    return res;
-  }
-
-  return dfs(s);
-}
-
-// "catsanddog", ["cat","cats","and","sand","dog"] → ["cat sand dog", "cats and dog"]`} />
-            </CardContent>
-          </Card>
-
-          {/* 3. LRU Cache – True O(1) */}
-          <Card className="overflow-hidden border-2 shadow-xl">
-            <CardHeader className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white">
-              <CardTitle className="text-2xl">3. LRU Cache – Real O(1) with Doubly Linked List + Map</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <CodeBlock language="ts" code={`class ListNode {
-  key: number;
-  val: number;
-  prev: ListNode | null = null;
-  next: ListNode | null = null;
-  constructor(key: number, val: number) { this.key = key; this.val = val; }
-}
-
-class LRUCache {
-  capacity: number;
-  map: Map<number, ListNode> = new Map();
-  head: ListNode = new ListNode(0, 0);
-  tail: ListNode = new ListNode(0, 0);
-
-  constructor(capacity: number) {
-    this.capacity = capacity;
-    this.head.next = this.tail;
-    this.tail.prev = this.head;
-  }
-
-  private remove(node: ListNode) {
-    node.prev!.next = node.next;
-    node.next!.prev = node.prev;
-  }
-
-  private addToHead(node: ListNode) {
-    node.next = this.head.next;
-    node.prev = this.head;
-    this.head.next!.prev = node;
-    this.head.next = node;
-  }
-
-  get(key: number): number {
-    if (!this.map.has(key)) return -1;
-    const node = this.map.get(key)!;
-    this.remove(node);
-    this.addToHead(node);
-    return node.val;
-  }
-
-  put(key: number, value: number): void {
-    if (this.map.has(key)) {
-      const node = this.map.get(key)!;
-      node.val = value;
-      this.remove(node);
-      this.addToHead(node);
-    } else {
-      const node = new ListNode(key, value);
-      this.map.set(key, node);
-      this.addToHead(node);
-      if (this.map.size > this.capacity) {
-        const lru = this.tail.prev!;
-        this.remove(lru);
-        this.map.delete(lru.key);
-      }
-    }
-  }
-}`} />
-              <Badge className="mt-4 bg-emerald-600 text-white">True O(1) · Meta/Google Standard</Badge>
-            </CardContent>
-          </Card>
-
-          {/* 4. Median of Two Sorted Arrays */}
-          <Card>
-            <CardHeader><CardTitle>4. Median of Two Sorted Arrays (Binary Search)</CardTitle></CardHeader>
-            <CardContent>
-              <CodeBlock language="ts" code={`function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
-  if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);
-  const m = nums1.length, n = nums2.length;
-  let left = 0, right = m;
-
-  while (left <= right) {
-    const partitionX = (left + right) >> 1;
-    const partitionY = ((m + n + 1) >> 1) - partitionX;
-
-    const maxLeftX = partitionX === 0 ? -Infinity : nums1[partitionX - 1];
-    const minRightX = partitionX === m ? Infinity : nums1[partitionX];
-
-    const maxLeftY = partitionY === 0 ? -Infinity : nums2[partitionY - 1];
-    const minRightY = partitionY === n ? Infinity : nums2[partitionY];
-
-    if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
-      if ((m + n) % 2 === 0) {
-        return (Math.max(maxLeftX, maxLeftY) + Math.min(minRightX, minRightY)) / 2;
-      } else {
-        return Math.max(maxLeftX, maxLeftY);
-      }
-    } else if (maxLeftX > minRightY) {
-      right = partitionX - 1;
-    } else {
-      left = partitionX + 1;
-    }
-  }
-  throw new Error("Input arrays are not sorted");
-}`} />
-              <Badge className="bg-red-600 text-white">O(log(min(m,n))) · Legendary</Badge>
-            </CardContent>
-          </Card>
-
-          {/* 5. Sliding Window Maximum (Deque) */}
-          <Card className="overflow-hidden border-2">
-            <CardHeader className="bg-gradient-to-r from-orange-600 to-red-600 text-white">
-              <CardTitle className="text-2xl">5. Sliding Window Maximum (Monotonic Queue)</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <CodeBlock language="ts" code={`function maxSlidingWindow(nums: number[], k: number): number[] {
-  const result: number[] = [];
-  const deque: number[] = []; // stores indices
-
-  for (let i = 0; i < nums.length; i++) {
-    // Remove elements outside window
-    if (deque.length && deque[0] === i - k) deque.shift();
-
-    // Remove smaller elements from back
-    while (deque.length && nums[deque[deque.length - 1]] < nums[i]) {
-      deque.pop();
-    }
-
-    deque.push(i);
-
-    if (i >= k - 1) {
-      result.push(nums[deque[0]]);
-    }
-  }
-
-  return result;
-}
-
-// [1,3,-1,-3,5,3,6,7], k=3 → [3,3,5,5,6,7]`} />
-              <Badge className="mt-4 bg-orange-600 text-white">Bloomberg / Amazon Favorite</Badge>
-            </CardContent>
-          </Card>
-
-        </div>
-      </section>
-
-      {/* Red Flags */}
-      <section className="mb-16">
-        <h2 className="text-4xl font-bold mb-8 text-primary flex items-center gap-4">
-          <AlertCircle className="w-12 h-12 text-red-600" />
-          Interview-Killing Mistakes (Advanced Edition)
-        </h2>
-        <Card className="bg-red-50 dark:bg-red-950/40 border-red-400">
-          <CardContent className="p-10">
-            <ul className="space-y-5 text-lg">
-              {[
-                "Using O(N²) DP when O(N) is possible",
-                "Not using monotonic queue for sliding window max/min",
-                "Using array for LRU instead of DLL + Map",
-                "Not handling overflow in Dijkstra (use Number.MAX_SAFE_INTEGER)",
-                "Forgetting path compression in Union-Find",
-                "Using recursion for DP without memoization",
-                "Not considering binary search on answer",
-                "Writing O(N log N) when O(N) exists"
-              ].map((mistake) => (
-                <li key={mistake} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center text-2xl">X</div>
-                  <span className="font-medium">{mistake}</span>
-                </li>
-              ))}
+        <Card>
+          <CardContent className="p-6">
+            <ul className="list-disc list-inside space-y-3 text-lg">
+              <li>
+                Implement complex generics for reusable components/functions.
+              </li>
+              <li>
+                Use utility types (e.g., <code className="bg-muted px-1 rounded">Partial</code>,{" "}
+                <code className="bg-muted px-1 rounded">Readonly</code>,{" "}
+                <code className="bg-muted px-1 rounded">Pick</code>,{" "}
+                <code className="bg-muted px-1 rounded">Omit</code>) to transform types.
+              </li>
+              <li>
+                Correctly type React props, state, event handlers, and custom hooks.
+              </li>
+              <li>Understand type guards and assertion functions.</li>
+              <li>
+                Differentiate between <code className="bg-muted px-1 rounded">interface</code> and{" "}
+                <code className="bg-muted px-1 rounded">type</code> and when to use each.
+              </li>
             </ul>
           </CardContent>
         </Card>
       </section>
 
-      {/* Pro Tips */}
-      <section className="mb-16">
-        <h2 className="text-4xl font-bold mb-8 text-primary">Pro Tips That Win Senior+ Interviews</h2>
-        <Card>
-          <CardContent className="p-10">
-            <ol className="space-y-6 text-lg">
-              <li><strong>Always ask: “Can I assume input is sorted?”</strong></li>
-              <li><strong>State the DP state definition clearly</strong>: “dp[i][j] = longest palindrome centered at i,j”</li>
-              <li><strong>Draw the monotonic queue</strong> — interviewers love it</li>
-              <li><strong>Mention Union-Find with path compression + rank</strong> — instant senior signal</li>
-              <li><strong>Know when to use binary search on answer</strong> (e.g., aggressive cows, book allocation)</li>
-              <li><strong>Explain why your greedy works</strong> — don’t just code it</li>
-              <li><strong>Know the 5 ways to solve knapsack</strong></li>
-            </ol>
-          </CardContent>
-        </Card>
+      <section className="mb-12">
+        <h2 className="text-4xl font-bold mb-6 text-primary">
+          Core Concepts Cheat Sheet
+        </h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Generics */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Generics</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  <strong>Purpose:</strong> Create reusable components that work with a variety of types.
+                </li>
+                <li>
+                  <strong>Syntax:</strong> Use <code className="bg-muted px-1 rounded">&lt;T&gt;</code> in functions, interfaces, classes.
+                </li>
+                <li>
+                  <strong>Constraints:</strong> <code className="bg-muted px-1 rounded">extends</code> keyword to limit types (e.g., <code className="bg-muted px-1 rounded">&lt;T extends object&gt;</code>).
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Utility Types */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Utility Types</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  <strong><code>Partial&lt;T&gt;</code>:</strong> Makes all properties optional.
+                </li>
+                <li>
+                  <strong><code>Readonly&lt;T&gt;</code>:</strong> Makes all properties readonly.
+                </li>
+                <li>
+                  <strong><code>Pick&lt;T, K&gt;</code>:</strong> Picks specified properties.
+                </li>
+                <li>
+                  <strong><code>Omit&lt;T, K&gt;</code>:</strong> Removes specified properties.
+                </li>
+                <li>
+                  <strong><code>Exclude&lt;T, U&gt;</code>:</strong> Excludes types assignable to U.
+                </li>
+                <li>
+                  <strong><code>Extract&lt;T, U&gt;</code>:</strong> Extracts types assignable to U.
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Type Guards & Assertions */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Type Guards & Assertions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  <strong>Type Guards:</strong> Runtime checks that narrow types (<code>typeof</code>, <code>instanceof</code>, custom predicates).
+                </li>
+                <li>
+                  <strong>Type Assertions (<code>as</code>):</strong> Tell TS you know better. Use sparingly.
+                </li>
+                <li>
+                  <strong>Non-null Assertion (<code>!</code>):</strong> Asserts value is not null/undefined.
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Interface vs Type */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Interfaces vs. Types</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  <strong><code>interface</code>:</strong> Can be merged/extended, preferred for object shapes.
+                </li>
+                <li>
+                  <strong><code>type</code>:</strong> More flexible — unions, tuples, primitives, mapped types.
+                </li>
+                <li>
+                  <strong>Best Practice:</strong> Use <code>interface</code> for public APIs/objects, <code>type</code> for complex type logic.
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
-      {/* Quick Summary */}
-      <section className="mb-16">
-        <h2 className="text-4xl font-bold mb-8 text-primary">One-Page God Tier Cheat Sheet</h2>
-        <Card className="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/50">
-          <CardContent className="p-10">
-            <div className="grid md:grid-cols-2 gap-10 text-lg">
-              <div>
-                <h3 className="text-2xl font-bold mb-4 text-red-600">God Tier Patterns</h3>
-                <ul className="space-y-3 font-medium">
-                  <li>Binary Search on Answer</li>
-                  <li>Monotonic Queue / Deque</li>
-                  <li>DP with Bitmask (State Compression)</li>
-                  <li>Trie + Backtracking</li>
-                  <li>Union-Find + Rank + Path Compression</li>
-                  <li>Segment Tree / Fenwick Tree</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-4 text-orange-600">Must-Know Problems</h3>
-                <ul className="space-y-3 font-medium">
-                  <li>Trapping Rain Water</li>
-                  <li>Sliding Window Maximum</li>
-                  <li>Word Break II</li>
-                  <li>Median of Two Sorted Arrays</li>
-                  <li>LRU Cache (DLL + Map)</li>
-                  <li>Alien Dictionary</li>
-                </ul>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <section className="mb-12">
+        <h2 className="text-4xl font-bold mb-6 text-primary">
+          Most Important Code Patterns
+        </h2>
+        <div className="space-y-10">
+          {/* 1. Generic Identity */}
+          <div>
+            <h3 className="text-2xl font-semibold mb-3">
+              1. Generic Identity Function
+            </h3>
+            <CodeBlock
+              language="typescript"
+              code={`function identity<T>(arg: T): T {
+  return arg;
+}
+
+// Usage
+const str = identity<string>("hello");  // type: string
+const num = identity(42);               // type: number (inferred)
+const arr = identity<number[]>([1, 2, 3]);`}
+            />
+          </div>
+
+          {/* 2. Partial & Pick */}
+          <div>
+            <h3 className="text-2xl font-semibold mb-3">
+              2. Using Partial and Pick
+            </h3>
+            <CodeBlock
+              language="typescript"
+              code={`interface User {
+  id: string;
+  name: string;
+  email: string;
+  age: number;
+}
+
+type UpdateUser = Partial<User>;
+type UserPreview = Pick<User, "name" | "email">;
+
+// Valid
+const update: UpdateUser = { name: "Alice" };
+const preview: UserPreview = { name: "Bob", email: "bob@x.com" };`}
+            />
+          </div>
+
+          {/* 3. React Props Typing */}
+          <div>
+            <h3 className="text-2xl font-semibold mb-3">
+              3. Typing React Props & Events
+            </h3>
+            <CodeBlock
+              language="tsx"
+              code={`import React from "react";
+
+interface ButtonProps {
+  label: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  variant?: "primary" | "secondary";
+  disabled?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({
+  label,
+  onClick,
+  variant = "primary",
+  disabled = false,
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={\`btn btn-\${variant}\`}
+    >
+      {label}
+    </button>
+  );
+};`}
+            />
+          </div>
+        </div>
       </section>
 
-      {/* Navigation */}
-      <nav className="flex flex-col sm:flex-row justify-between gap-6 mt-20 pb-10">
-        <Link href="/problem-solving-intermediate" passHref legacyBehavior>
-          <Button variant="outline" size="lg" className="flex items-center gap-3 text-lg px-8 py-6">
-            <ArrowLeftIcon className="h-6 w-6" /> Previous: Problem Solving (Intermediate)
+      {/* Practice Questions - Only showing 3 fixed ones */}
+      <section className="mb-12">
+        <h2 className="text-4xl font-bold mb-6 text-primary">
+          Top Practice Questions HackerRank Loves
+        </h2>
+        <div className="space-y-8">
+          {/* Question 1 */}
+          <Card>
+            <CardHeader>
+              <CardTitle>1. Generic useState (Custom Hook)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CodeBlock
+                language="typescript"
+                code={`function useState<T>(
+  initialValue: T | (() => T)
+): [T, (newValue: T | ((prev: T) => T)) => void] {
+  // Simplified — real React uses internal fiber
+  let _value: T = typeof initialValue === "function" 
+    ? (initialValue as () => T)() 
+    : initialValue;
+
+  const setValue = (newValue: T | ((prev: T) => T)) => {
+    _value = typeof newValue === "function" 
+      ? (newValue as (prev: T) => T)(_value)
+      : newValue;
+    console.log("New state:", _value);
+  };
+
+  return [_value, setValue];
+}
+
+// Usage
+const [count, setCount] = useState(0);
+const [name, setName] = useState(() => "John");`}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Question 3 - DeepPartial */}
+          <Card>
+            <CardHeader>
+              <CardTitle>3. DeepPartial&lt;T&gt; Utility Type</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CodeBlock
+                language="typescript"
+                code={`type DeepPartial<T> = T extends object
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : T;
+
+// Example
+interface Config {
+  api: {
+    url: string;
+    timeout: number;
+  };
+  features: {
+    darkMode: boolean;
+    notifications: {
+      email: boolean;
+      push: boolean;
+    };
+  };
+}
+
+const partialConfig: DeepPartial<Config> = {
+  features: { notifications: { push: true } }
+};`}
+              />
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <nav className="flex justify-between mt-12">
+        <Link href="/react" passHref legacyBehavior>
+          <Button  variant="outline" className="flex items-center gap-2">
+            <ArrowLeftIcon className="h-4 w-4" /> Previous: React (Intermediate)
           </Button>
         </Link>
-        <Link href="/system-design" passHref legacyBehavior>
-          <Button size="lg" variant={"outline"} className="flex items-center gap-3 text-lg px-8 py-6">
-            Next: System Design Fundamentals <ArrowRightIcon className="h-6 w-6" />
+        <Link href="/nodejs" passHref legacyBehavior>
+          <Button className="flex items-center gap-2">
+            Next Topic: Node.js (Intermediate) <ArrowRightIcon className="h-4 w-4" />
           </Button>
         </Link>
       </nav>
@@ -400,4 +331,4 @@ class LRUCache {
   );
 };
 
-export default ProblemSolvingAdvancedPage;
+export default TypescriptIntermediatePage;
